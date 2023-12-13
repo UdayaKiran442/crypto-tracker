@@ -20,6 +20,7 @@ import {
 } from "@material-ui/core";
 import numberWithCommas from "../utils/numberWithCommas";
 import { Pagination } from "@material-ui/lab";
+import { Link } from "react-router-dom";
 
 const CoinsTable = () => {
   const [coins, setCoins] = useState([]);
@@ -117,39 +118,41 @@ const CoinsTable = () => {
                       const profit = row.price_change_percentage_24h > 0;
                       return (
                         <TableRow key={row.name}>
-                          <TableCell
-                            component="th"
-                            scope="row"
-                            style={{
-                              display: "flex",
-                              gap: 15,
-                            }}
-                          >
-                            <img
-                              src={row?.image}
-                              alt={row?.name}
-                              height="50"
-                              style={{ marginBottom: 10 }}
-                            />
-                            <div
+                          <Link to={`/coin/${row.id}`}>
+                            <TableCell
+                              component="th"
+                              scope="row"
                               style={{
                                 display: "flex",
-                                flexDirection: "column",
+                                gap: 15,
                               }}
                             >
-                              <span
+                              <img
+                                src={row?.image}
+                                alt={row?.name}
+                                height="50"
+                                style={{ marginBottom: 10 }}
+                              />
+                              <div
                                 style={{
-                                  textTransform: "uppercase",
-                                  fontSize: 22,
+                                  display: "flex",
+                                  flexDirection: "column",
                                 }}
                               >
-                                {row?.symbol}
-                              </span>
-                              <span style={{ color: "darkgrey" }}>
-                                {row?.name}
-                              </span>
-                            </div>
-                          </TableCell>
+                                <span
+                                  style={{
+                                    textTransform: "uppercase",
+                                    fontSize: 22,
+                                  }}
+                                >
+                                  {row?.symbol}
+                                </span>
+                                <span style={{ color: "darkgrey" }}>
+                                  {row?.name}
+                                </span>
+                              </div>
+                            </TableCell>
+                          </Link>
                           <TableCell align="right">
                             {symbol}
                             {numberWithCommas(row?.current_price.toFixed(2))}
